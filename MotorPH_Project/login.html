@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MotorPH Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: #0f0f0f;
+}
+
+/* Background */
+.bgimg {
+  background: 
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
+    url('red.jpg') no-repeat center center/cover;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Premium Glass Card */
+.container {
+  width: 380px;
+  padding: 45px 35px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255,255,255,0.15);
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
+
+.container:hover {
+  transform: scale(1.01);
+}
+
+/* Title */
+h1 {
+  margin-bottom: 30px;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+/* Tabs */
+.quick {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.quick button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.quick button:hover {
+  background: linear-gradient(135deg, #e53935, #ff6f61);
+  box-shadow: 0 0 10px rgba(229,57,53,0.7);
+}
+
+/* Input Groups */
+.input-group {
+  position: relative;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 14px 14px 42px; /* balanced padding */
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  outline: none;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-family: 'Orbitron';
+  display: block;
+}
+
+.input-group input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+/* Focus glow */
+.input-group input:focus {
+  border: 1px solid #e53935;
+  box-shadow: 0 0 10px rgba(229,57,53,0.6);
+}
+
+/* Icons */
+.input-group span {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.7);
+}
+
+/* Login Button */
+.main-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+  color: white;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.main-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(229,57,53,0.6);
+}
+</style>
+</head>
+
+<body>
+
+<div class="bgimg">
+  <div class="container">
+
+    <h1>MotorPH</h1>
+
+    <!-- Tabs -->
+    <div class="quick">
+      <button onclick="quickLogin('admin')">Admin</button>
+      <button onclick="quickLogin('customer')">Customer</button>
+    </div>
+
+    <!-- Username -->
+    <div class="input-group">
+      <span>👤</span>
+      <input type="text" id="loginUsername" placeholder="Username">
+    </div>
+
+    <!-- Password -->
+    <div class="input-group">
+      <span>🔒</span>
+      <input type="password" id="loginPassword" placeholder="Password">
+    </div>
+
+    <!-- Login -->
+    <button class="main-btn" onclick="loginForm()">Login</button>
+
+  </div>
+</div>
+
+<script>
+let users = [
+  {username: 'admin', password: '1234', role: 'admin'},
+  {username: 'customer', password: '1234', role: 'customer'}
+];
+
+function loginForm(){
+  const u = document.getElementById("loginUsername").value;
+  const p = document.getElementById("loginPassword").value;
+
+  const user = users.find(x => x.username===u && x.password===p);
+
+  if(user){
+    localStorage.setItem("role", user.role);
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Invalid login!");
+  }
+}
+
+function quickLogin(type){
+  localStorage.setItem("role", type);
+  window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>
